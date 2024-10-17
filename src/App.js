@@ -1,23 +1,13 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Tennisgame from './minigames/Tennisgame.js';
 
 function App() {
+  const [record, setRecord] = useState(0)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className=''>
+      {record}
+      <Tennisgame playerX={10} playerWidth={10} playerHeight={90} ballRaidus={20} canvasHeight={"300px"} canvasWidth={"500px"} setRecord={setRecord} />
     </div>
   );
 }
