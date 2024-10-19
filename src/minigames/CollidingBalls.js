@@ -5,18 +5,23 @@ export default function CollidingBalls() {
     const [canvas, setCanvas] = useState()
     const [ctx, setCtx] = useState()
     const [balls, setBalls] = useState([])
+    const [update, setUpdate] = useState(0)
     const getCanvas = useRef()
 
     // let balls = []
     let color = ["red", "blue", "green", "purple"]
-    const radius = 15;
-    const numberOFballs = 100;
+    const radius = 40;
+    const numberOFballs = 50;
     const mathRandom = (min, max) => {
         let result;
         result = Math.random() * (max - min) + min
         return result
     }
 
+    const updatefnc = () => {
+        if (update === 0) setUpdate(1)
+        if (update === 1) setUpdate(0)
+    }
     const clearCanvas = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
@@ -43,7 +48,7 @@ export default function CollidingBalls() {
 
     }
     const checkCollisions = (tempArr, i) => {
-        let returnArr = tempArr;
+        let returnArr = balls;
         for (let j = 0; j < tempArr.length; j++) {
             if (j === i) continue
             const distance = measureDistance(tempArr[i].x, tempArr[i].y, tempArr[j].x, tempArr[j].y) - 2 * radius
@@ -73,8 +78,9 @@ export default function CollidingBalls() {
         return returnArr
     }
 
-    const moveball = (prop, arr) => {
-        let ball = prop
+    const moveball = (i) => {
+        let result = checkCollisions(balls, i)
+        let ball = result[i]
         if (canvas.width - radius < ball.x || 0 + radius > ball.x) {
             ball.dx = -ball.dx
         }
@@ -83,8 +89,15 @@ export default function CollidingBalls() {
         }
         ball.x = ball.x + ball.dx
         ball.y = ball.y + ball.dy
-        return prop
-
+        result = balls.map((element, index) => {
+            if (index === i) {
+                return ball
+            } else {
+                return element
+            }
+        })
+        setBalls(result)
+        updatefnc()
     }
 
     // drawBall 
@@ -131,6 +144,7 @@ export default function CollidingBalls() {
             tempArr.push(ball)
         }
         setBalls(tempArr)
+        updatefnc()
     }
 
 
@@ -143,24 +157,12 @@ export default function CollidingBalls() {
     useEffect(() => {
         if (!canvas || balls.length === 0) return
         clearCanvas()
-        let tempArr = balls
-        for (let i = 0; i < tempArr.length; i++) {
-            if (tempArr.length === 0) return
-            drawBall(tempArr[i])
-            tempArr = checkCollisions(tempArr, i)
-            let ball = tempArr[i]
-            ball = moveball(ball, tempArr)
-            tempArr = tempArr.map((element, index) => {
-                if (index === i) {
-                    return ball
-                } else {
-                    return element
-                }
-            }
-            )
+        for (let i = 0; i < balls.length; i++) {
+            if (balls.length === 0) return
+            drawBall(balls[i])
+            moveball(i)
         }
-        setBalls(tempArr)
-    })
+    }, [update])
 
     return (
         <div className='m-auto flex justify-center align-middle'>
