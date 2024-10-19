@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import ReactPopover from './ReactPopover'
-import Timer from './Timer'
+import ReactPopover from '../utility/ReactPopover.js'
+import Timer from '../utility/Timer.js'
 
 export default function Tennisgame(props) {
     const c = useRef()
