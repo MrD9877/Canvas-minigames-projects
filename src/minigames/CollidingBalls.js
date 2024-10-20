@@ -10,11 +10,18 @@ export default function CollidingBalls() {
 
     // let balls = []
     let color = ["red", "blue", "green", "purple"]
-    const radius = 40;
-    const numberOFballs = 50;
-    const mathRandom = (min, max) => {
+    const radius = 25;
+    const numberOFballs = 100;
+    const mathRandom = (min, max, nmin, nmax) => {
         let result;
         result = Math.random() * (max - min) + min
+        // if (nmin) {
+        //     for (let i = 0; i < 1; i++)
+        //         if (result <= 0.2 && result >= -0.2) {
+        //             result = Math.random() * (max - min) + min
+        //             i = -1
+        //         }
+        // }
         return result
     }
 
@@ -41,7 +48,6 @@ export default function CollidingBalls() {
     }
     const manageCollition = (tempArr, i, j) => {
         const angle = Math.tan(tempArr[j].dy - tempArr[i].dy / tempArr[j].dx - tempArr[i].dx)
-        console.log(tempArr[j].dy - tempArr[i].dy / tempArr[j].dx - tempArr[i].dx)
         const u1 = rotate(tempArr[i], angle)
         const u2 = rotate(tempArr[j], angle)
         return { u1, u2 }
@@ -122,8 +128,8 @@ export default function CollidingBalls() {
                 y: mathRandom(0 + radius, canvas.height - radius),
                 radius: radius,
                 color: color[Math.round(mathRandom(0, 3))],
-                dx: mathRandom(-0.05, 0.05),
-                dy: mathRandom(-0.05, 0.05)
+                dx: mathRandom(-2, 2, -0.1, 0.1),
+                dy: mathRandom(-0.8, 0.8, -0.1, 0.1),
             }
             if (i !== 0) {
                 for (let j = 0; j < tempArr.length; j++) {
@@ -154,7 +160,7 @@ export default function CollidingBalls() {
         createballs()
     }, [canvas])
 
-    useEffect(() => {
+    requestAnimationFrame(() => {
         if (!canvas || balls.length === 0) return
         clearCanvas()
         for (let i = 0; i < balls.length; i++) {
@@ -162,7 +168,10 @@ export default function CollidingBalls() {
             drawBall(balls[i])
             moveball(i)
         }
-    }, [update])
+    })
+    // useEffect(() => {
+
+    // }, [update])
 
     return (
         <div className='m-auto flex justify-center align-middle'>

@@ -1,13 +1,21 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import './App.css';
-import Tennisgame from './minigames/Tennisgame.js';
+// import Tennisgame from './minigames/Tennisgame.js';
+import CollidingBalls from './minigames/CollidingBalls.js';
+// import Tankbust from './minigames/Tankbust.js';
+import Circle from './minigames/Circle.js';
+// import TestState from './minigames/testState.js';
 
 function App() {
-  const [record, setRecord] = useState(0)
+  // const [record, setRecord] = useState(0)
   return (
-    <div className=''>
-      {record}
-      <Tennisgame playerX={10} playerWidth={10} playerHeight={90} ballRaidus={20} canvasHeight={"300px"} canvasWidth={"500px"} setRecord={setRecord} />
+    <div >
+      <Circle />
+      {/* <Tankbust /> */}
+      {/* <CollidingBalls /> */}
+      {/* <TestState /> */}
+      {/* {record} */}
+      {/* <Tennisgame playerX={10} playerWidth={10} playerHeight={90} ballRaidus={20} canvasHeight={"300px"} canvasWidth={"500px"} setRecord={setRecord} /> */}
     </div>
   );
 }
