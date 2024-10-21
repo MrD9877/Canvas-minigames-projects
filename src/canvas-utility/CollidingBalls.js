@@ -15,13 +15,7 @@ export default function CollidingBalls() {
     const mathRandom = (min, max, nmin, nmax) => {
         let result;
         result = Math.random() * (max - min) + min
-        // if (nmin) {
-        //     for (let i = 0; i < 1; i++)
-        //         if (result <= 0.2 && result >= -0.2) {
-        //             result = Math.random() * (max - min) + min
-        //             i = -1
-        //         }
-        // }
+
         return result
     }
 
