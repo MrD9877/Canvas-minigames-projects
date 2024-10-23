@@ -5,6 +5,6 @@ dy = dy + gravity
 
 ## Friction 
 To add friction to a particle multiply velocity to a number < 1.\
-dx = dx*0.99
+dx = dx*0.99\
 dy = dy*0.99
 
